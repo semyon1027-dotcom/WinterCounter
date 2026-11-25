@@ -19,6 +19,7 @@ jobs:
 
       - name: Extract Winter Counter
         run: |
+          mkdir -p /tmp/winter
           unzip -q WinterCounter-Geode6-GD22091-Android-fixed.zip -d /tmp/winter
 
       - name: Setup CMake
@@ -30,6 +31,8 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           target: ${{ matrix.target }}
+          sdk: latest
+          path: /tmp/winter
           combine: true
 
   package:
