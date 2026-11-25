@@ -32,7 +32,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
           sdk: latest
-          path: /tmp/winter
+          path: /tmp/winter/WinterCounter
           combine: true
 
   package:
