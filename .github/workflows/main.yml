@@ -19,8 +19,7 @@ jobs:
 
       - name: Extract Winter Counter
         run: |
-          unzip -q WinterCounter-Geode6-GD22091-Android-source.zip -d /tmp/winter
-          cp -a /tmp/winter/WinterCounter/. .
+          unzip -q WinterCounter-Geode6-GD22091-Android-fixed.zip -d /tmp/winter
 
       - name: Setup CMake
         uses: jwlawson/actions-setup-cmake@v2
