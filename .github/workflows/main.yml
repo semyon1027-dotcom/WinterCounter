@@ -1,0 +1,49 @@
+name: Build Winter Counter Android
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [Android32, Android64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract Winter Counter
+        run: |
+          unzip -q WinterCounter-Geode6-GD22091-Android-source.zip -d /tmp/winter
+          cp -a /tmp/winter/WinterCounter/. .
+
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.27.x'
+
+      - name: Build Geode mod
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          target: ${{ matrix.target }}
+          combine: true
+
+  package:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Combine packages
+        id: combine
+        uses: geode-sdk/build-geode-mod/combine@main
+
+      - name: Upload Winter Counter
+        uses: actions/upload-artifact@v4
+        with:
+          name: WinterCounter-Android
+          path: ${{ steps.combine.outputs.build-output }}
+          if-no-files-found: error
