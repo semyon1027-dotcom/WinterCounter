@@ -38,7 +38,7 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           target: ${{ matrix.target }}
-          sdk: given
+          sdk: "6.0.0"
           android-min-sdk: "23"
           android-ndk-version: "29.0.14206865"
           path: /tmp/winter/WinterCounter
